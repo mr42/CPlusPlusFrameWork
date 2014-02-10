@@ -9,7 +9,7 @@
 TEST(StringTest, toLowerCase) {
   String s;
   string a = "klein";
-  string b = "GROSS";
+  string b = "GROS";
   string c = "mIx";
   ASSERT_EQ("klein", s.toLowerCase(a));
   ASSERT_EQ("gross",  s.toLowerCase(b));
