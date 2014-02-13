@@ -7,12 +7,9 @@
 
 namespace DataTypesExtensions {
   // _____________________________________________________________________________
-  string StringOperator::toLowerCase(const std::string& s) const {
-    const int length = s.length();
-    string result = s;
-    for (int i = 0; i < length; ++i) {
-      result[i] = std::tolower(result[i]);
+  void StringOperator::toLowerCase(std::string * s) const {
+    for (int i = 0; i < s->length(); ++i) {
+      s->at(i) = std::tolower(s->at(i));
     }
-    return result;
   }
 }

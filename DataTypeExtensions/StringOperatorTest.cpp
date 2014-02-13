@@ -10,10 +10,13 @@ using DataTypesExtensions::StringOperator;
 // _____________________________________________________________________________
 TEST(StringTest, toLowerCase) {
   StringOperator s;
-  string a = "klein";
-  string b = "GROSS";
+  string a = "small";
+  string b = "LARGE";
   string c = "mIx";
-  ASSERT_EQ("klein", s.toLowerCase(a));
-  ASSERT_EQ("gross",  s.toLowerCase(b));
-  ASSERT_EQ("mix", s.toLowerCase(c));
+  s.toLowerCase(&a);
+  s.toLowerCase(&b);
+  s.toLowerCase(&c);
+  ASSERT_EQ("small", a);
+  ASSERT_EQ("large", b);
+  ASSERT_EQ("mix", c);
 }

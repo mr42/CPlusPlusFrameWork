@@ -12,7 +12,7 @@ namespace DataTypesExtensions {
   class StringOperator {
     public:
     // All the characters of the given string are converted to to lower case.
-    string toLowerCase(const string& s) const;
+    void toLowerCase(string * s) const;
   };
 }
 
