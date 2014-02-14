@@ -16,9 +16,9 @@ TEST(StringTest, toLowerCase) {
   s.toLowerCase(&a);
   s.toLowerCase(&b);
   s.toLowerCase(&c);
-  ASSERT_EQ("small", a);
-  ASSERT_EQ("large", b);
-  ASSERT_EQ("mix", c);
+  EXPECT_EQ("small", a);
+  EXPECT_EQ("large", b);
+  EXPECT_EQ("mix", c);
 }
 
 // _____________________________________________________________________________
@@ -30,7 +30,7 @@ TEST(StringTest, toUpperCase) {
   s.toUpperCase(&a);
   s.toUpperCase(&b);
   s.toUpperCase(&c);
-  ASSERT_EQ("SMALL", a);
-  ASSERT_EQ("LARGE", b);
-  ASSERT_EQ("MIX", c);
+  EXPECT_EQ("SMALL", a);
+  EXPECT_EQ("LARGE", b);
+  EXPECT_EQ("MIX", c);
 }
