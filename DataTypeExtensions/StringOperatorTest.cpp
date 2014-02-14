@@ -20,3 +20,17 @@ TEST(StringTest, toLowerCase) {
   ASSERT_EQ("large", b);
   ASSERT_EQ("mix", c);
 }
+
+// _____________________________________________________________________________
+TEST(StringTest, toUpperCase) {
+  StringOperator s;
+  string a = "small";
+  string b = "LARGE";
+  string c = "mIx";
+  s.toUpperCase(&a);
+  s.toUpperCase(&b);
+  s.toUpperCase(&c);
+  ASSERT_EQ("SMALL", a);
+  ASSERT_EQ("LARGE", b);
+  ASSERT_EQ("MIX", c);
+}

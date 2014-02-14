@@ -13,6 +13,8 @@ namespace DataTypesExtensions {
     public:
     // All the characters of the given string are converted to to lower case.
     void toLowerCase(string * s) const;
+    // All the characters of the given string are converted to to upper case.
+    void toUpperCase(string * s) const;
   };
 }
 

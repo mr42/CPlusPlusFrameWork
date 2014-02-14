@@ -8,8 +8,14 @@
 namespace DataTypesExtensions {
   // _____________________________________________________________________________
   void StringOperator::toLowerCase(std::string * s) const {
-    for (int i = 0; i < s->length(); ++i) {
+    for (size_t i = 0; i < s->length(); i++) {
       s->at(i) = std::tolower(s->at(i));
+    }
+  }
+  // _____________________________________________________________________________
+  void StringOperator::toUpperCase(std::string * s) const {
+    for (size_t i = 0; i < s->length(); i++) {
+      s->at(i) = std::toupper(s->at(i));
     }
   }
 }
