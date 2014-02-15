@@ -18,6 +18,12 @@ namespace Geometrics {
       return this->_x == p._x && this->_y == p._y;
     }
 
+    // Two Points aren't equal if the x and the y
+    // coordinate is not the same.
+    bool operator!=(const Point2D p) {
+      return this->_x != p._x || this->_y != p._y;
+    }
+
     T _x;
     T _y;
   };

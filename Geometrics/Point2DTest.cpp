@@ -25,3 +25,13 @@ TEST(PointTest, operatorEqual) {
   p2._y = 8;
   EXPECT_TRUE(p1 == p2);
 }
+
+// ________________________________________________
+TEST(Point2D, operatorNotEqual) {
+  Point2D<int> p1(3, 8);
+  Point2D<int> p2(53, 493);
+  EXPECT_TRUE(p1 != p2);
+  p2._x = 3;
+  p2._y = 8;
+  EXPECT_FALSE(p1 != p2);
+}
