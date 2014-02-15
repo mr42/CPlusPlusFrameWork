@@ -35,3 +35,12 @@ TEST(Point2D, operatorNotEqual) {
   p2._y = 8;
   EXPECT_FALSE(p1 != p2);
 }
+
+// ___________________________________________________
+TEST(Point2D, operatorAddition) {
+  Point2D<int> p1(45, 83);
+  Point2D<int> p2(534, 930);
+  Point2D<int> p3(579, 1013);
+  Point2D<int> p4 = p1 + p2;
+  EXPECT_TRUE(p3 == p4);
+}

@@ -20,8 +20,12 @@ namespace Geometrics {
 
     // Two Points aren't equal if the x and the y
     // coordinate is not the same.
-    bool operator!=(const Point2D p) {
+    bool operator!=(const Point2D& p) {
       return this->_x != p._x || this->_y != p._y;
+    }
+    // Addition of two points.
+    const Point2D operator+(const Point2D& p) {
+      return Point2D(this->_x + p._x, this->_y + p._y);
     }
 
     T _x;
