@@ -28,6 +28,11 @@ namespace Geometrics {
       return Point2D(this->_x + p._x, this->_y + p._y);
     }
 
+    // Substraction of two points.
+    const Point2D operator-(const Point2D& p) {
+      return Point2D(this->_x - p._x, this->_y - p._y);
+    }
+
     T _x;
     T _y;
   };

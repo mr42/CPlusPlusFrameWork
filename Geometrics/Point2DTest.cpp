@@ -44,3 +44,12 @@ TEST(Point2D, operatorAddition) {
   Point2D<int> p4 = p1 + p2;
   EXPECT_TRUE(p3 == p4);
 }
+
+// ___________________________________________________
+TEST(Point2D, operatorSubtraction) {
+  Point2D<int> p1(45, 83);
+  Point2D<int> p2(5, 90);
+  Point2D<int> p3(40, -7);
+  Point2D<int> p4 = p1 - p2;
+  EXPECT_TRUE(p3 == p4);
+}
