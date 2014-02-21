@@ -2,8 +2,8 @@
  * Copyright 2014 by Jonas Schlagenhauf
  */
 
-#ifndef _VEC3
-#define _VEC3
+#ifndef GEOMETRICS_VEC3_H_
+#define GEOMETRICS_VEC3_H_
 
 template <typename T>
 struct Vec3
@@ -11,7 +11,7 @@ struct Vec3
   T x, y, z;
 
   // Creates an empty vector
-  Vec3() { x = (T)0; y = (T)0; z = (T)0; }
+  Vec3() : x((T)0), y((T)0), z((T)0) {}
 
   // Initializes the vector with values
   Vec3(T inX, T inY, T inZ) : x(inX), y(inY), z(inZ) {}
@@ -36,4 +36,4 @@ struct Vec3
   }
 };
 
-#endif  // _VEC3
+#endif  // GEOMETRICS_VEC3_H_

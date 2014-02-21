@@ -2,8 +2,8 @@
  * Copyright 2014 by Jonas Schlagenhauf
  */
 
-#ifndef _QUATERNION
-#define _QUATERNION
+#ifndef GEOMETRICS_QUATERNION_H_
+#define GEOMETRICS_QUATERNION_H_
 
 #include <math.h>
 #include "./Vec3.h"
@@ -15,9 +15,10 @@ class Quaternion
  public:
   float w, x, y, z;
   // Standard constructor for the lazy
-  Quaternion() { w = 1; x = 0; y = 0; z = 0; }
+  Quaternion() : w(1), x(0), y(0), z(0) {}
   // Direct initialization constructor
-  Quaternion(float inW, float inX, float inY, float inZ) : w(inW), x(inX), y(inY), z(inZ) {}
+  Quaternion(float inW, float inX, float inY, float inZ)
+    : w(inW), x(inX), y(inY), z(inZ) {}
   // Creates a quaternion based on the three euler angles
   Quaternion(float alpha, float beta, float gamma);
   // Creates a quaternion based on the angle around a rotation axis
@@ -174,4 +175,4 @@ float Quaternion::rotAngleInDeg()
   return 2*acos(w) * 180 / PI;
 }
 
-#endif  // _QUATERNION
+#endif  // GEOMETRICS_QUATERNION_H_

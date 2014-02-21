@@ -1867,6 +1867,7 @@ def CheckBracesSameLine(filename, clean_lines, linenum, error):
 
   line = clean_lines.elided[linenum]        # get rid of comments and strings
 
+  '''
   if Match(r'\s*{\s*$', line):
     # We allow an open brace to start a line in the case where someone
     # is using braces in a block to explicitly create a new scope,
@@ -1878,13 +1879,16 @@ def CheckBracesSameLine(filename, clean_lines, linenum, error):
     if not Search(r'[;:}{]\s*$', prevline):
       error(filename, linenum, 'whitespace/braces', 4,
             '{ should almost always be at the end of the previous line')
+  '''
 
+  '''
   # An else clause should be on the same line as the preceding closing brace.
   if Match(r'\s*else\s*', line):
     prevline = GetPreviousNonBlankLine(clean_lines, linenum)[0]
     if Match(r'\s*}\s*$', prevline):
       error(filename, linenum, 'whitespace/newline', 4,
             'An else should appear on the same line as the preceding }')
+  '''
 
   # If braces come on one side of an else, they should be on both.
   # However, we have to worry about "else if" that spans multiple lines!
@@ -2097,7 +2101,7 @@ def GetLineWidth(line):
   else:
     return len(line)
 
-# Changes by Ina Baumgarten (baumgari), since we want to check the indent_level correctly (using a 2-whitespaces-indent). 
+# Changes by Ina Baumgarten (baumgari), since we want to check the indent_level correctly (using a 2-whitespaces-indent).
 def CheckIndent(filename, clean_lines, linenum, file_extension, error):
   global INDENT_LEVEL
   global BRACE_LEVEL
@@ -2118,7 +2122,7 @@ def CheckIndent(filename, clean_lines, linenum, file_extension, error):
   while initial_spaces < len(rawline) and rawline[initial_spaces] == ' ':
     initial_spaces += 1
 
-  
+
   # Look for #include and stuff like public:, private:, ...
   if (Match(r'\s*#include', lastline) or Match(r'\s*\w+\s*:\s*$', lastline)):
     LINE_END = 1;
@@ -2136,7 +2140,7 @@ def CheckIndent(filename, clean_lines, linenum, file_extension, error):
   # Decrement INDENT_LEVEL if there is a closing brace.
   if Search(r'}', line):
     INDENT_LEVEL -= 1
-  
+
   if Search(r'}', lastline):
     LOCK = 0
     INDENT_LEVEL -= LOOP_COUNTER
@@ -2172,10 +2176,10 @@ def CheckIndent(filename, clean_lines, linenum, file_extension, error):
 
   if ((SWITCH_CASE == 3) and (Search(r'case.*:', line) or Search(r'default:', line))):
     SWITCH_CASE = 2
-  
+
   if ((SWITCH_CASE != 0) and Match(r'\s*}', line) and SWITCH_LOCKED == 0):
     SWITCH_CASE = 0
- 
+
   if (rawline and rawline[-1].isspace()) and not Search(r'\bNOLINT\b', rawline):  # ignore nolint lines
     error(filename, linenum, 'whitespace/end_of_line', 4,
           'Line ends in whitespace. Consider deleting these extra spaces.')
@@ -2184,7 +2188,7 @@ def CheckIndent(filename, clean_lines, linenum, file_extension, error):
   # Checking lines without closing braces.
   elif ((initial_spaces != (2 * INDENT_LEVEL))
         and (SWITCH_CASE != 3)
-        and (LINE_END == 1) 
+        and (LINE_END == 1)
         and (BRACE_LEVEL == 0)
         and not Match(r'\s*\w+\s*:\s*$', line)
         and not Match(r'\s*\/\/', rawline)
@@ -2194,7 +2198,7 @@ def CheckIndent(filename, clean_lines, linenum, file_extension, error):
     error(filename, linenum, 'whitespace/indent', 3,
           'Weird number of spaces at line-start.  '
           'Are you using a 2-space indent?')
- 
+
   elif (((LINE_END == 0) or (BRACE_LEVEL != 0) or (SWITCH_CASE == 3))
       and not Match(r'\s*\w+\s*:\s*$', line)
       and not IsBlankLine(rawline) and not Match(r'\s*\/\/', rawline)
@@ -2204,7 +2208,7 @@ def CheckIndent(filename, clean_lines, linenum, file_extension, error):
      error(filename, linenum, 'whitespace/indent', 3,
           'Weird number of spaces at line-start.  '
           'Use as least as much as in the line before.')
- 
+
  # Labels should always be indented at least one space.
   elif (not initial_spaces and line[:2] != '//' and Search(r'[^:]:\s*$', line)
       and not Search(r'\bNOLINT\b', rawline)):  # ignore nolint lines
@@ -2216,10 +2220,10 @@ def CheckIndent(filename, clean_lines, linenum, file_extension, error):
   # Increment INDENT_LEVEL if there is an opening brace.
   if Search(r'{', line):
     INDENT_LEVEL += 1
-  
+
   if Search(r'{.*}', line):
     INDENT_LEVEL -= 1
- 
+
   if (LOOP_COUNTER > 0 and Search(r';\s*$', line)) and not LOCK:
     INDENT_LEVEL -= LOOP_COUNTER
     LOOP_COUNTER = 0;
@@ -2241,24 +2245,24 @@ def CheckIndent(filename, clean_lines, linenum, file_extension, error):
   # Checking Line End.
   # Checkable for indent_level: 1
   # Not checkable: 0
-  
+
   # If there is an semikolon in this line or includefiles, this line has been ended.
-  if (Search(r';\s*$', line)): 
+  if (Search(r';\s*$', line)):
     LINE_END = 1
 
-  # If there is no semikolon in this line, this line hasn't been ended, so 
+  # If there is no semikolon in this line, this line hasn't been ended, so
   # don't check for indentlevel.
   if not (IsBlankLine(rawline) or BLOCK_COMMENT == 1 or Match(r'\s*\/\/', rawline) or
       Match(r'\s*\#', line)):
     if (not(Match(r'\s*if\s*\(', line) or Match(r'\s*for\s*\(', line) or
-        Match(r'\s*else', line) or Match(r'\s*while\s*\(', line)) 
+        Match(r'\s*else', line) or Match(r'\s*while\s*\(', line))
         and not Search(r';\s*$', line) and (LINE_END == 1) and not Match(r'\s*{',
         line) and not Match(r'\s*}', line)):
       LINE_END = 0
 
   if Search(r'\*\/', rawline):
     BLOCK_COMMENT = 0
- 
+
   while counting_braces < len(line):
     if (line[counting_braces] == '('):
       BRACE_LEVEL += 1
@@ -2266,7 +2270,7 @@ def CheckIndent(filename, clean_lines, linenum, file_extension, error):
       BRACE_LEVEL -= 1
     counting_braces += 1
 # no more changed by Ina Baumgarten (baumgari)
- 
+
 def CheckStyle(filename, clean_lines, linenum, file_extension, error):
   """Checks rules from the 'C++ style rules' section of cppguide.html.
 
@@ -3141,7 +3145,7 @@ def ProcessFileData(filename, file_extension, lines, error):
   """
   lines = (['// marker so line numbers and indices both start at 1'] + lines +
            ['// marker so line numbers end in a known way'])
- 
+
   # Reinitalize
   global INDENT_LEVEL
   global LOCK
@@ -3341,4 +3345,3 @@ def main():
 
 if __name__ == '__main__':
   main()
-
