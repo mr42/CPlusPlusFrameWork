@@ -114,10 +114,28 @@ namespace Geometrics {
                                 v._coordinates[i];
       return result;
     }
+
+    /**
+     * Overloading the [] operator. Non-Const variante.
+     *
+     * @param i is the coordinate index
+     *
+     * @return The value of the coordinate with the
+     *         index i.
+     *
+     */
     T& operator[](const int& i) {
       return _coordinates[i];
     }
 
+    /**
+     * Overloading the [] operator. Const variante.
+     *@param i is the coordinate index
+     *
+     * @return The value of the coordinate with the
+     *         index i.
+     *
+     */
     const T& operator[](const int& i) const {
       return _coordinates[i];
     }

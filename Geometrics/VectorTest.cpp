@@ -10,6 +10,11 @@ TEST(VectorTest, constructor) {
   Vector<int> v(2, 4, 7);
   EXPECT_EQ(4, v[0]);
   EXPECT_EQ(7, v[1]);
+  Vector<int> vd4(4, 43, 21, 3, 795);
+  EXPECT_EQ(43, vd4[0]);
+  EXPECT_EQ(21, vd4[1]);
+  EXPECT_EQ(3, vd4[2]);
+  EXPECT_EQ(795, vd4[3]);
   Vector<double> v1(2, 4.43241, 6.4325);
   EXPECT_DOUBLE_EQ(4.43241, v1[0]);
   EXPECT_DOUBLE_EQ(6.4325, v1[1]);
