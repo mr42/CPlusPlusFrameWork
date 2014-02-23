@@ -143,6 +143,56 @@ namespace Geometrics {
     T* _coordinates;
     int _dim;
   };
+  template<>
+  class Vector<float> {
+    public:
+    /**
+     * The constructor of Vector.
+     *
+     * @param dim should be the dimension of the vector
+     *        and it is followed by a dynamic parameter
+     *        list, where every parameter represants
+     *        a coordinate.
+     */
+    Vector(int dim, ...) {
+      va_list ap;
+      va_start(ap, dim);
+      _dim = dim;
+      _coordinates = new float[_dim];
+      for (int i = 0; i < _dim; i++) {
+        double d = va_arg(ap, double);
+        _coordinates[i] = static_cast<float>(d);
+      }
+      va_end(ap);
+    }
+    /**
+     * Overloading the [] operator. Non-Const variante.
+     *
+     * @param i is the coordinate index
+     *
+     * @return The value of the coordinate with the
+     *         index i.
+     *
+     */
+    float& operator[](const int& i) {
+      return _coordinates[i];
+    }
+
+    /**
+     * Overloading the [] operator. Const variante.
+     *@param i is the coordinate index
+     *
+     * @return The value of the coordinate with the
+     *         index i.
+     *
+     */
+    const float& operator[](const int& i) const {
+      return _coordinates[i];
+    }
+    private:
+    float* _coordinates;
+    int _dim;
+  };
 }
 
 #endif  // GEOMETRICS_VECTOR_H_

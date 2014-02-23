@@ -15,6 +15,9 @@ TEST(VectorTest, constructor) {
   EXPECT_EQ(21, vd4[1]);
   EXPECT_EQ(3, vd4[2]);
   EXPECT_EQ(795, vd4[3]);
+  Vector<float> vf2(2, 4.43, 8.493);
+  EXPECT_FLOAT_EQ(4.43, vf2[0]);
+  EXPECT_FLOAT_EQ(8.493, vf2[1]);
   Vector<double> v1(2, 4.43241, 6.4325);
   EXPECT_DOUBLE_EQ(4.43241, v1[0]);
   EXPECT_DOUBLE_EQ(6.4325, v1[1]);
