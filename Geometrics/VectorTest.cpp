@@ -53,7 +53,6 @@ TEST(VectorTest, operatorNotEqual) {
   int i22[] = {53, 493};
   Vector<> v1(i21, 2);
   Vector<> v2(i22, 2);
-  int i;
   EXPECT_TRUE(v1 != v2);
   v2[0] = 3;
   v2[1] = 8;
