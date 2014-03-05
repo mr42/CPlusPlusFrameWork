@@ -7,26 +7,40 @@ using Geometrics::Vector;
 
 // _________________________________________________
 TEST(VectorTest, constructor) {
-  Vector<int> v(2, 4, 7);
-  EXPECT_EQ(4, v[0]);
-  EXPECT_EQ(7, v[1]);
-  Vector<int> vd4(4, 43, 21, 3, 795);
-  EXPECT_EQ(43, vd4[0]);
-  EXPECT_EQ(21, vd4[1]);
-  EXPECT_EQ(3, vd4[2]);
-  EXPECT_EQ(795, vd4[3]);
-  Vector<float> vf2(2, 4.43, 8.493);
-  EXPECT_FLOAT_EQ(4.43, vf2[0]);
-  EXPECT_FLOAT_EQ(8.493, vf2[1]);
-  Vector<double> v1(2, 4.43241, 6.4325);
-  EXPECT_DOUBLE_EQ(4.43241, v1[0]);
-  EXPECT_DOUBLE_EQ(6.4325, v1[1]);
+  // Test for int
+  int i2[] = {4, 7};
+  Vector<> vi2(i2, 2);
+  EXPECT_EQ(4, vi2[0]);
+  EXPECT_EQ(7, vi2[1]);
+  int i4[] = {43, 21, 3, 795};
+  Vector<> vi4(i4, 4);
+  EXPECT_EQ(43, vi4[0]);
+  EXPECT_EQ(21, vi4[1]);
+  EXPECT_EQ(3, vi4[2]);
+  EXPECT_EQ(795, vi4[3]);
+  // Test for float
+  float f2[] = {4.43, 8.493};
+  Vector<float> vf2(f2, 2);
+  EXPECT_FLOAT_EQ(4.43, f2[0]);
+  EXPECT_FLOAT_EQ(8.493, f2[1]);
+  // Test for double
+  double d2[] = {4.43241, 6.4325};
+  Vector<double> v1(d2, 2);
+  EXPECT_DOUBLE_EQ(4.43241, d2[0]);
+  EXPECT_DOUBLE_EQ(6.4325, d2[1]);
+  // Test for unsigned int
+  unsigned int ui2[] = {34, 98};
+  Vector<unsigned int> vu3(ui2, 2);
+  EXPECT_EQ(34, ui2[0]);
+  EXPECT_EQ(98, ui2[1]);
 }
 
 // _________________________________________________
 TEST(VectorTest, operatorEqual) {
-  Vector<int> v1(2, 3, 8);
-  Vector<int> v2(2, 53, 493);
+  int i21[] = {3, 8};
+  int i22[] = {53, 493};
+  Vector<> v1(i21, 2);
+  Vector<> v2(i22, 2);
   EXPECT_FALSE(v1 == v2);
   v2[0] = 3;
   v2[1] = 8;
@@ -35,8 +49,10 @@ TEST(VectorTest, operatorEqual) {
 
 // ________________________________________________
 TEST(VectorTest, operatorNotEqual) {
-  Vector<int> v1(2, 3, 8);
-  Vector<int> v2(2, 53, 493);
+  int i21[] = {3, 8};
+  int i22[] = {53, 493};
+  Vector<> v1(i21, 2);
+  Vector<> v2(i22, 2);
   EXPECT_TRUE(v1 != v2);
   v2[0] = 3;
   v2[1] = 8;
@@ -45,17 +61,23 @@ TEST(VectorTest, operatorNotEqual) {
 
 // ___________________________________________________
 TEST(VectorTest, operatorAddition) {
-  Vector<int> v1(2, 45, 83);
-  Vector<int> v2(2, 534, 930);
-  Vector<int> v3(2, 579, 1013);
-  Vector<int> v4 = v1 + v2;
+  int i21[] = {45, 83};
+  int i22[] = {534, 930};
+  int iresult2[] = {579, 1013};
+  Vector<> v1(i21, 2);
+  Vector<> v2(i22, 2);
+  Vector<> v3(iresult2, 2);
+  Vector<> v4 = v1 + v2;
   EXPECT_TRUE(v3 == v4);
 }
 // ___________________________________________________
 TEST(Point2D, operatorSubtraction) {
-  Vector<int> v1(2, 45, 83);
-  Vector<int> v2(2, 5, 90);
-  Vector<int> v3(2, 40, -7);
-  Vector<int> v4 = v1 - v2;
+  int i21[] = {45, 83};
+  int i22[] = {5, 90};
+  int iresult2[] = {40, -7};
+  Vector<> v1(i21, 2);
+  Vector<> v2(i22, 2);
+  Vector<> v3(iresult2, 2);
+  Vector<> v4 = v1 - v2;
   EXPECT_TRUE(v3 == v4);
 }
