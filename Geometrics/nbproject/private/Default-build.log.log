@@ -1,0 +1,31 @@
+g++ -O3 -g -Wall -c VectorTest.cpp
+g++ -O3 -g -Wall -o VectorTest VectorTest.o -lgtest -lgtest_main -lpthread
+for T in VectorTest; do ./$T; done
+Running main() from gtest_main.cc
+[==========] Running 5 tests from 2 test cases.
+[----------] Global test environment set-up.
+[----------] 4 tests from VectorTest
+[ RUN      ] VectorTest.constructor
+[       OK ] VectorTest.constructor (0 ms)
+[ RUN      ] VectorTest.operatorEqual
+[       OK ] VectorTest.operatorEqual (0 ms)
+[ RUN      ] VectorTest.operatorNotEqual
+[       OK ] VectorTest.operatorNotEqual (0 ms)
+[ RUN      ] VectorTest.operatorAddition
+[       OK ] VectorTest.operatorAddition (0 ms)
+[----------] 4 tests from VectorTest (0 ms total)
+
+[----------] 1 test from Point2D
+[ RUN      ] Point2D.operatorSubtraction
+[       OK ] Point2D.operatorSubtraction (0 ms)
+[----------] 1 test from Point2D (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 5 tests from 2 test cases ran. (0 ms total)
+[  PASSED  ] 5 tests.
+python ../cpplint.py *.h *.cpp
+Done processing Quaternion.h
+Done processing Vec3.h
+Done processing Vector.h
+Done processing VectorTest.cpp
+Total errors found: 0
