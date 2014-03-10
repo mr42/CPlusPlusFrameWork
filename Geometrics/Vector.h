@@ -252,15 +252,15 @@ namespace Geometrics {
     }
 
     private:
-    /*
+    /**
      * The coordinates of the vector as array.
      */
     T* _coordinates;
-    /*
+    /**
      * The dimension of the vector.
      */
     int _dim;
-    /*
+    /**
      * True, if an array was allocated with
      * new.
      */
