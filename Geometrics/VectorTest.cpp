@@ -93,7 +93,7 @@ TEST(VectorTest, operatorAdditionEqual) {
 }
 
 // ___________________________________________________
-TEST(Point2D, operatorSubtraction) {
+TEST(VectorTest, operatorSubtraction) {
   int i21[] = {45, 83};
   int i22[] = {5, 90};
   int iresult2[] = {40, -7};
@@ -105,7 +105,7 @@ TEST(Point2D, operatorSubtraction) {
 }
 
 // ___________________________________________________
-TEST(Point2D, operatorSubtractionEqual) {
+TEST(VectorTest, operatorSubtractionEqual) {
   int i21[] = {45, 83};
   int i22[] = {5, 90};
   Vector<> v21(i21, 2);
@@ -116,7 +116,7 @@ TEST(Point2D, operatorSubtractionEqual) {
 }
 
 // ___________________________________________________
-TEST(Point2D, operatorMultiplication) {
+TEST(VectorTest, operatorMultiplication) {
   int i41[] = {25, 3, 4, 9};
   int i42[] = {5, -15, 0, 6};
   int iresult4[] = {125, -45, 0, 54};
@@ -128,7 +128,7 @@ TEST(Point2D, operatorMultiplication) {
 }
 
 // ___________________________________________________
-TEST(Point2D, operatorMultiplicationEqual) {
+TEST(VectorTest, operatorMultiplicationEqual) {
   int i41[] = {25, 3, 4, 9};
   int i42[] = {5, -15, 0, 6};
   Vector<> v41(i41, 4);
