@@ -229,7 +229,8 @@ namespace Geometrics
    * @param eps Angular threshold where to begin with LERP
    * @return The resulting rotation as a quaternion
    */
-  Quaternion Quaternion::slerp(Quaternion const& destQt, float t, float eps) const
+  Quaternion Quaternion::slerp(Quaternion const& destQt,
+                               float t, float eps) const
   {
     if (t <= 0)
       return *this;

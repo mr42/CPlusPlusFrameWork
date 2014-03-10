@@ -108,6 +108,7 @@ namespace Geometrics {
       }
       return false;
     }
+
     /**
      * Overloading the + operator. Add two vector v1 and
      * v2. Throw an assertion, if the dimension of the
@@ -128,6 +129,25 @@ namespace Geometrics {
     }
 
     /**
+     * 
+     * Overloading the += operator. Add the vector v to
+     * the vector, standing before the += operator.
+     * Throw an assertion, if the dimension of the
+     * vectors are not the same.
+     * 
+     * @param v The other Vector.
+     * @return The modified vector, standing before the += operator.
+     */
+    Vector& operator+=(const Vector& v)
+    {
+      assert(this->_dim == v._dim);
+      for (int i = 0; i < v._dim; i++)
+        this->_coordinates[i] = this->_coordinates[i] +
+                                v._coordinates[i];
+      return *this;
+    }
+
+    /**
      * Overloading the - operator. Add two vector v1 and
      * v2. Throw an assertion, if the dimension of the
      * vectors are not the same.
@@ -144,6 +164,64 @@ namespace Geometrics {
         result._coordinates[i] = this->_coordinates[i] -
                                 v._coordinates[i];
       return result;
+    }
+
+    /**
+     * 
+     * Overloading the -= operator. Subtract the vector v from
+     * the vector, standing before the -= operator.
+     * Throw an assertion, if the dimension of the
+     * vectors are not the same.
+     * 
+     * @param v The other Vector.
+     * @return The modified vector, standing before the -= operator.
+     */
+    Vector& operator-=(const Vector& v)
+    {
+      assert(this->_dim == v._dim);
+      for (int i = 0; i < v._dim; i++)
+        this->_coordinates[i] = this->_coordinates[i] -
+                                v._coordinates[i];
+      return *this;
+    }
+
+    /**
+     * Overloading the * operator. Calculate the 
+     * scalar product of two vectors(v1, v2).
+     * Throw an assertion, if the dimension of the
+     * vectors are not the same.
+     *
+     * @param v The other Vector.
+     * @return Vector v3, where all coordinate i holds:
+     *         v3[i] = v1[i] * v2[i].
+     */
+    const Vector operator*(const Vector& v)
+    {
+      assert(this->_dim == v._dim);
+      Vector result(v._dim, 0);
+      for (int i = 0; i < v._dim; i++)
+        result._coordinates[i] = this->_coordinates[i] *
+                                v._coordinates[i];
+      return result;
+    }
+
+    /**
+     * Overloading the *= operator. Calculate the 
+     * scalar product of two vectors(v1, v2).
+     * Throw an assertion, if the dimension of the
+     * vectors are not the same.
+     *
+     * @param v The other Vector.
+     * @return Vector v3, where all coordinate i holds:
+     *         v3[i] = v1[i] * v2[i].
+     */
+    Vector& operator*=(const Vector& v)
+    {
+      assert(this->_dim == v._dim);
+      for (int i = 0; i < v._dim; i++)
+        this->_coordinates[i] = this->_coordinates[i] *
+                                v._coordinates[i];
+      return *this;
     }
 
     /**
@@ -174,8 +252,18 @@ namespace Geometrics {
     }
 
     private:
+    /*
+     * The coordinates of the vector as array.
+     */
     T* _coordinates;
+    /*
+     * The dimension of the vector.
+     */
     int _dim;
+    /*
+     * True, if an array was allocated with
+     * new.
+     */
     bool _delocate;
   };
 }

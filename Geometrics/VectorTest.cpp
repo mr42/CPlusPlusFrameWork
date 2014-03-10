@@ -70,6 +70,28 @@ TEST(VectorTest, operatorAddition) {
   Vector<> v4 = v1 + v2;
   EXPECT_TRUE(v3 == v4);
 }
+
+// ___________________________________________________
+TEST(VectorTest, operatorAdditionEqual) {
+  // Test for int
+  int i21[] = {45, 83};
+  int i22[] = {534, 930};
+  Vector<> v21(i21, 2);
+  Vector<> v22(i22, 2);
+  v21 += v22;
+  EXPECT_EQ(579, v21[0]);
+  EXPECT_EQ(1013, v21[1]);
+  int i41[] = {45, 8, 4, -6};
+  int i42[] = {3, -4, 9, 0};
+  Vector<> v41(i41, 4);
+  Vector<> v42(i42, 4);
+  v41 += v42;
+  EXPECT_EQ(48, v41[0]);
+  EXPECT_EQ(4, v41[1]);
+  EXPECT_EQ(13, v41[2]);
+  EXPECT_EQ(-6, v41[3]);
+}
+
 // ___________________________________________________
 TEST(Point2D, operatorSubtraction) {
   int i21[] = {45, 83};
@@ -80,4 +102,40 @@ TEST(Point2D, operatorSubtraction) {
   Vector<> v3(iresult2, 2);
   Vector<> v4 = v1 - v2;
   EXPECT_TRUE(v3 == v4);
+}
+
+// ___________________________________________________
+TEST(Point2D, operatorSubtractionEqual) {
+  int i21[] = {45, 83};
+  int i22[] = {5, 90};
+  Vector<> v21(i21, 2);
+  Vector<> v22(i22, 2);
+  v21 -= v22;
+  EXPECT_EQ(40, v21[0]);
+  EXPECT_EQ(-7, v21[1]);
+}
+
+// ___________________________________________________
+TEST(Point2D, operatorMultiplication) {
+  int i41[] = {25, 3, 4, 9};
+  int i42[] = {5, -15, 0, 6};
+  int iresult4[] = {125, -45, 0, 54};
+  Vector<> v41(i41, 4);
+  Vector<> v42(i42, 4);
+  Vector<> v43(iresult4, 4);
+  Vector<> v44 = v41 * v42;
+  EXPECT_TRUE(v43 == v44);
+}
+
+// ___________________________________________________
+TEST(Point2D, operatorMultiplicationEqual) {
+  int i41[] = {25, 3, 4, 9};
+  int i42[] = {5, -15, 0, 6};
+  Vector<> v41(i41, 4);
+  Vector<> v42(i42, 4);
+  v41 *= v42;
+  EXPECT_EQ(125, v41[0]);
+  EXPECT_EQ(-45, v41[1]);
+  EXPECT_EQ(0, v41[2]);
+  EXPECT_EQ(54, v41[3]);
 }
