@@ -119,23 +119,7 @@ TEST(VectorTest, operatorSubtractionEqual) {
 TEST(VectorTest, operatorMultiplication) {
   int i41[] = {25, 3, 4, 9};
   int i42[] = {5, -15, 0, 6};
-  int iresult4[] = {125, -45, 0, 54};
   Vector<> v41(i41, 4);
   Vector<> v42(i42, 4);
-  Vector<> v43(iresult4, 4);
-  Vector<> v44 = v41 * v42;
-  EXPECT_TRUE(v43 == v44);
-}
-
-// ___________________________________________________
-TEST(VectorTest, operatorMultiplicationEqual) {
-  int i41[] = {25, 3, 4, 9};
-  int i42[] = {5, -15, 0, 6};
-  Vector<> v41(i41, 4);
-  Vector<> v42(i42, 4);
-  v41 *= v42;
-  EXPECT_EQ(125, v41[0]);
-  EXPECT_EQ(-45, v41[1]);
-  EXPECT_EQ(0, v41[2]);
-  EXPECT_EQ(54, v41[3]);
+  EXPECT_EQ(134, v41 * v42);
 }
