@@ -1,4 +1,4 @@
-SUBDIRS = Geometrics DataTypeExtensions
+SUBDIRS = Geometrics DataTypeExtensions Visualization
      
 .PHONY: subdirs $(SUBDIRS)
      
