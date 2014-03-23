@@ -3,9 +3,24 @@
 
 #include <gtest/gtest.h>
 #include <string>
+#include <vector>
 #include "./StringOperator.h"
 
 using DataTypesExtensions::StringOperator;
+
+// _____________________________________________________________________________
+TEST(StringTest, splitStringByBlank) {
+  StringOperator s;
+  vector<string> result = s.splitStringByBlank(
+          "I study at the University Freiburg");
+  string expected[] = {"I", "study", "at", "the", "University", "Freiburg"};
+  EXPECT_EQ(6, result.size());
+  for (size_t i = 0; i < 6; i++) {
+    EXPECT_EQ(expected[i], result[i]);
+  }
+  vector<string> result2 = s.splitStringByBlank("");
+  EXPECT_EQ(0, result2.size());
+}
 
 // _____________________________________________________________________________
 TEST(StringTest, toLowerCase) {
