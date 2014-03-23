@@ -29,6 +29,7 @@
 
 #include <assert.h>
 #include <gtest/gtest.h>
+#include <algorithm>
 #include <cstdarg>
 #include <vector>
 
@@ -40,6 +41,10 @@ namespace Geometrics {
   template<class T = int>
   class Point {
     public:
+    Point() {
+      _dim = 0;
+      _coordinates = new T[0];
+    }
     /**
      * The first constructor.
      * 
@@ -58,6 +63,17 @@ namespace Geometrics {
       }
 
       va_end(coordinates);
+    }
+
+    /**
+     * Make a deep copy of the given Point.
+     * @param orig The original point, which should be copied.
+     */
+    Point(const Point& orig) {
+      _dim = orig._dim;
+      _coordinates = new T[_dim];
+      for (int i = 0; i < orig._dim; i++)
+        _coordinates[i] = orig._coordinates[i];
     }
 
     /**
@@ -83,6 +99,32 @@ namespace Geometrics {
     virtual ~Point()
     {
       delete [] _coordinates;
+    }
+
+    /**
+     * Return the dimension of the Point
+     * @return The dimension of the Point.
+     */
+    const int& getDim() {
+      return _dim;
+    }
+
+    /**
+     * 
+     * The Point p is assigned to this, by swapping all the members of this and
+     * the deep copy of p.
+     * 
+     * @param p The point right to the =. It's wanted,
+     *          that p is passed by value.
+     * @return This, with the members' values of p.
+     */
+    Point& operator= (Point p)
+    {
+      // swap this with other
+      swap(p);
+      // by convention, always return *this
+      return *this;
+      // note: p is destroyed, releasing the memory
     }
 
     /**
@@ -241,7 +283,44 @@ namespace Geometrics {
       return _coordinates[i];
     }
 
+    /**
+     * A function, doing th same like the [] operator. Non-Const variante.
+     *
+     * @param i is the coordinate index
+     *
+     * @return The value of the coordinate with the
+     *         index i.
+     *
+     */
+    T& at(const int& i)
+    {
+      return _coordinates[i];
+    }
+
+    /**
+     * A function, doing th same like the [] operator. Const variante.
+     * @param i is the coordinate index
+     *
+     * @return The value of the coordinate with the
+     *         index i.
+     *
+     */
+    const T& at(const int& i) const
+    {
+      return _coordinates[i];
+    }
+
     private:
+    /**
+     * Swap all the members of p and this.
+     * @param p The Point for the swapping
+     */
+    void swap(Point& p)
+    {
+      // swap all the members  with p
+      std::swap(_coordinates, p._coordinates);
+      std::swap(_dim, p._dim);
+    }
     /**
      * The coordinates of the Point as array.
      */
@@ -262,7 +341,11 @@ namespace Geometrics {
   template<>
   class Point<float> {
     public:
-      /**
+    Point() {
+      _dim = 0;
+      _coordinates = new float[0];
+    }
+     /**
      * 
      * The first constructor.
      * 
@@ -279,6 +362,17 @@ namespace Geometrics {
         _coordinates[i] = static_cast<float>(va_arg(coordinates, double));
       }
       va_end(coordinates);
+    }
+
+    /**
+     * Make a deep copy of the given Point.
+     * @param orig The original point, which should be copied.
+     */
+    Point(const Point& orig) {
+      _dim = orig._dim;
+      _coordinates = new float[_dim];
+      for (int i = 0; i < orig._dim; i++)
+        _coordinates[i] = orig._coordinates[i];
     }
 
     /**
@@ -304,6 +398,31 @@ namespace Geometrics {
     virtual ~Point()
     {
       delete [] _coordinates;
+    }
+
+    /**
+     * Return the dimension of the Point
+     * @return The dimension of the Point.
+     */
+    const int& getDim() {
+      return _dim;
+    }
+
+    /**
+     * The Point p is assigned to this, by swapping all the members of this and
+     * the deep copy of p.
+     * 
+     * @param p The point right to the =. It's wanted,
+     *          that p is passed by value.
+     * @return This, with the members' values of p.
+     */
+    Point& operator= (Point p)
+    {
+      // swap this with other
+      swap(p);
+      // by convention, always return *this
+      return *this;
+      // note: p is destroyed, releasing the memory
     }
 
     /**
@@ -462,7 +581,44 @@ namespace Geometrics {
       return _coordinates[i];
     }
 
+    /**
+     * A function, doing th same like the [] operator. Non-Const variante.
+     *
+     * @param i is the coordinate index
+     *
+     * @return The value of the coordinate with the
+     *         index i.
+     *
+     */
+    float& at(const int& i)
+    {
+      return _coordinates[i];
+    }
+
+    /**
+     * A function, doing th same like the [] operator. Const variante.
+     * @param i is the coordinate index
+     *
+     * @return The value of the coordinate with the
+     *         index i.
+     *
+     */
+    const float& at(const int& i) const
+    {
+      return _coordinates[i];
+    }
+
     private:
+    /**
+     * Swap all the members of p and this.
+     * @param p The Point for the swapping
+     */
+    void swap(Point& p)
+    {
+      // swap all the members  with p
+      std::swap(_coordinates, p._coordinates);
+      std::swap(_dim, p._dim);
+    }
     /**
      * The coordinates of the Point as array.
      */

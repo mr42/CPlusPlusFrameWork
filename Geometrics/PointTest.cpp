@@ -37,6 +37,11 @@ TEST(PointTest, constructor) {
   EXPECT_EQ(21, vi4[1]);
   EXPECT_EQ(3, vi4[2]);
   EXPECT_EQ(795, vi4[3]);
+  Point<> pci4(vi4);
+  EXPECT_EQ(43, pci4[0]);
+  EXPECT_EQ(21, pci4[1]);
+  EXPECT_EQ(3, pci4[2]);
+  EXPECT_EQ(795, pci4[3]);
   // Test for float
   Point<float> vf2(2, 4.43, 8.493);
   EXPECT_FLOAT_EQ(4.43, vf2[0]);
@@ -49,6 +54,42 @@ TEST(PointTest, constructor) {
   Point<unsigned int> vu2(2, 34, 98);
   EXPECT_EQ(34, vu2[0]);
   EXPECT_EQ(98, vu2[1]);
+}
+
+// _________________________________________________
+TEST(PointTest, operatorAssign) {
+  // Test int
+  Point<> pright = Point<>(2, 3, 8);
+  EXPECT_EQ(3, pright[0]);
+  EXPECT_EQ(8, pright[1]);
+  Point<> pleft(4, 5, 9, 4, 68);
+  EXPECT_EQ(4, pleft.getDim());
+  EXPECT_EQ(5, pleft[0]);
+  EXPECT_EQ(9, pleft[1]);
+  EXPECT_EQ(4, pleft[2]);
+  EXPECT_EQ(68, pleft[3]);
+  pleft = pright;
+  EXPECT_EQ(2, pleft.getDim());
+  EXPECT_EQ(3, pleft[0]);
+  EXPECT_EQ(8, pleft[1]);
+  EXPECT_EQ(3, pright[0]);
+  EXPECT_EQ(8, pright[1]);
+  // Test float
+  Point<double> pfright = Point<double>(2, 3.43, 8.932);
+  EXPECT_FLOAT_EQ(3.43, pfright[0]);
+  EXPECT_FLOAT_EQ(8.932, pfright[1]);
+  Point<double> pfleft(3, 5.93, 9.43, 4.3);
+  EXPECT_EQ(3, pfleft.getDim());
+  EXPECT_FLOAT_EQ(5.93, pfleft[0]);
+  EXPECT_FLOAT_EQ(9.43, pfleft[1]);
+  EXPECT_FLOAT_EQ(4.3, pfleft[2]);
+  // EXPECT_FLOAT_EQ(68, pfleft[3]);
+  pfleft = pfright;
+  EXPECT_EQ(2, pfleft.getDim());
+  EXPECT_FLOAT_EQ(3.43, pfleft[0]);
+  EXPECT_FLOAT_EQ(8.932, pfleft[1]);
+  EXPECT_FLOAT_EQ(3.43, pfright[0]);
+  EXPECT_FLOAT_EQ(8.932, pfright[1]);
 }
 
 // _________________________________________________
