@@ -1,5 +1,5 @@
 /**
- * @file    Vector
+ * @file    Point.h
  * @author  michael <rudolphmichael42@gmail.com>
  * @version 1.0.0
  * 
@@ -20,7 +20,8 @@
  * 
  * @section DESCRIPTION
  *
- * description
+ * The Point class describes an _dim dimensional point. The point is
+ * stored as an array.
  */
 
 #ifndef GEOMETRICS_POINT_H_
@@ -32,6 +33,10 @@
 #include <vector>
 
 namespace Geometrics {
+  /**
+   * The Point class describes an _dim dimensional point. The point is
+   * stored as an array.
+   */
   template<class T = int>
   class Point {
     public:
