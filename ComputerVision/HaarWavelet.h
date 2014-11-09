@@ -26,6 +26,7 @@
 #ifndef HAARWAVELET_H
 #define	HAARWAVELET_H
 
+#include <math.h> 
 #include "CMatrix.h"
 
 namespace ComputerVision {
@@ -34,7 +35,6 @@ namespace ComputerVision {
   public:
     HaarWavelet();
 
-    // TODO: Implement the method for every level.
     /**
      * 
      * Decomposes a given image with the Haar wavelet.
@@ -43,13 +43,25 @@ namespace ComputerVision {
      * @param level
      * @return The decomposed image.
      */
-    CMatrix<float> decompose(CMatrix<float> img,
+    CMatrix<float> decompose(const CMatrix<float>& img,
                              const int level=2) const;
+    /**
+     * Synthesizes a given image with the Haar wavelet.
+     * 
+     * @param img The image, which should be synthesized.
+     * @param level
+     * @return The synthesized image.
+     */
+    CMatrix<float> synthesize(const CMatrix<float>& img,
+                              const int level=2) const;
     HaarWavelet(const HaarWavelet& orig);
     virtual ~HaarWavelet();
   private:
     void decompose(const CMatrix<float>& img,
                    const CMatrix<float>& result) const;
+    void synthesize(const CMatrix<float>& img,
+                    const CMatrix<float>& result,
+                    const int xSize, const int ySize) const;
   };
 }
 

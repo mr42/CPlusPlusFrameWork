@@ -37,14 +37,15 @@ namespace ComputerVision {
   }
 
   // ___________________________________________________________________________
-  CMatrix<float> HaarWavelet::decompose(CMatrix<float> img,
+  CMatrix<float> HaarWavelet::decompose(const CMatrix<float>& img,
                                         const int level) const {
     CMatrix<float> result(img.xSize(), img.ySize(), 0);
     decompose(img, result);
+    CMatrix<float> resultCut(result);
     for (int i = 1; i < level; i++) {
-      result.cut(img, 0, 0, result.xSize() / (2*i) - 1,
-                 result.ySize() / (2*i) - 1);
-      decompose(img, result);
+      result.cut(resultCut, 0, 0, result.xSize() / pow(2, i) - 1,
+                 result.ySize() / pow(2, i) - 1);
+      decompose(resultCut, result);
     }
     return result;
   }
@@ -63,6 +64,44 @@ namespace ComputerVision {
           result(x, img.ySize() / 2 + y) = 0.25 * (cc + ch - cv - cd);
           result(img.xSize() / 2 + x, img.ySize() / 2 + y) = 0.25 *
                                                             (cc - ch - cv + cd);
+        }
+      }
+    }
+  }
+  // ___________________________________________________________________________
+  CMatrix<float> HaarWavelet::synthesize(const CMatrix<float>& img,
+                                         const int level) const {
+    CMatrix<float> result(img.xSize(), img.ySize(), 0);
+    synthesize(img, result, result.xSize() / pow(2, (level-1)),
+                            result.ySize() / pow(2, (level-1)));
+
+    for (int i = 1; i < level; i++) {
+      for (int x = 0; x < (result.xSize() / pow(2, (level-(i-1)-1))); x++) {
+        for (int y = 0; y < (result.ySize() / pow(2, (level-(i-1)-1))); y++) {
+          img(x, y) = result(x, y);
+        }
+      }
+      synthesize(img, result, result.xSize() / pow(2, (level-i-1)),
+                      result.ySize() / pow(2, (level-i-1)));
+    }
+    return result;
+  }
+
+  void HaarWavelet::synthesize(const CMatrix<float>& img,
+                                         const CMatrix<float>& result,
+                                         const int xSize,
+                                         const int ySize) const {
+    for (int y = 0; y < ySize; y++) {
+      for (int x = 0; x < xSize; x++) {
+        if (2 * x + 1 < xSize && 2 * y + 1 < ySize) {
+          float c = img(x, y);
+          float dh = img(xSize / 2 + x, y);
+          float dv = img(x, ySize / 2 + y);
+          float dd = img(xSize / 2 + x, ySize / 2 + y);
+          result(2*x, 2*y) = (c + dh + dv + dd);
+          result(2*x+1, 2*y) = (c - dh + dv - dd);
+          result(2*x, 2*y+1) = (c + dh - dv - dd);
+          result(2*x+1, 2*y+1) = (c - dh - dv + dd);
         }
       }
     }
