@@ -28,6 +28,7 @@
 
 #include <math.h> 
 #include "CMatrix.h"
+#include "Shrinkage.h"
 
 namespace ComputerVision {
 
@@ -44,7 +45,9 @@ namespace ComputerVision {
      * @return The decomposed image.
      */
     CMatrix<float> decompose(const CMatrix<float>& img,
+                             const Shrinkage& sh,
                              const int level=2) const;
+    
     /**
      * Synthesizes a given image with the Haar wavelet.
      * 
@@ -54,10 +57,11 @@ namespace ComputerVision {
      */
     CMatrix<float> synthesize(const CMatrix<float>& img,
                               const int level=2) const;
+
     HaarWavelet(const HaarWavelet& orig);
     virtual ~HaarWavelet();
   private:
-    void decompose(const CMatrix<float>& img,
+    void decompose(const CMatrix<float>& img, const Shrinkage& sh,
                    const CMatrix<float>& result) const;
     void synthesize(const CMatrix<float>& img,
                     const CMatrix<float>& result,

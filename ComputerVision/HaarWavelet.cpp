@@ -27,6 +27,7 @@
 #include "Comparer.h"
 
 namespace ComputerVision {
+
   HaarWavelet::HaarWavelet() {
   }
 
@@ -38,19 +39,20 @@ namespace ComputerVision {
 
   // ___________________________________________________________________________
   CMatrix<float> HaarWavelet::decompose(const CMatrix<float>& img,
+                                        const Shrinkage& sh,
                                         const int level) const {
     CMatrix<float> result(img.xSize(), img.ySize(), 0);
-    decompose(img, result);
+    decompose(img, sh, result);
     CMatrix<float> resultCut(result);
     for (int i = 1; i < level; i++) {
       result.cut(resultCut, 0, 0, result.xSize() / pow(2, i) - 1,
                  result.ySize() / pow(2, i) - 1);
-      decompose(resultCut, result);
+      decompose(resultCut, sh, result);
     }
     return result;
   }
   // ___________________________________________________________________________
-  void HaarWavelet::decompose(const CMatrix<float>& img,
+  void HaarWavelet::decompose(const CMatrix<float>& img, const Shrinkage& sh,
                               const CMatrix<float>& result) const {
     for (int y = 0; y < img.ySize(); y++) {
       for (int x = 0; x < img.xSize(); x++) {
@@ -60,10 +62,12 @@ namespace ComputerVision {
           float cv = img(2*x, 2*y+1);
           float cd = img(2*x+1, 2*y+1);
           result(x, y) = 0.25 * (cc + ch + cv + cd);
-          result(img.xSize() / 2 + x, y) = 0.25 * (cc - ch + cv - cd);
-          result(x, img.ySize() / 2 + y) = 0.25 * (cc + ch - cv - cd);
-          result(img.xSize() / 2 + x, img.ySize() / 2 + y) = 0.25 *
-                                                            (cc - ch - cv + cd);
+          result(img.xSize() / 2 + x, y) = sh.shrinkValue(0.25 * (cc - ch +
+                                                                  cv - cd));
+          result(x, img.ySize() / 2 + y) = sh.shrinkValue(0.25 * (cc + ch -
+                                                                  cv - cd));
+          result(img.xSize() / 2 + x, img.ySize() / 2 + y) = sh.shrinkValue(
+                                                  0.25 * (cc - ch - cv + cd));
         }
       }
     }
@@ -106,6 +110,5 @@ namespace ComputerVision {
       }
     }
   }
-  
 }
 
