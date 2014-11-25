@@ -40,7 +40,12 @@ namespace Geometrics {
   }
   // ___________________________________________________________________________
   template <class T>
-  T& Matrix<T>::operator()(const int i, const int j) const {
+  T& Matrix<T>::operator()(const int i, const int j) {
+    return _data[i][j];
+  }
+  // ___________________________________________________________________________
+  template <class T>
+  const T& Matrix<T>::operator()(const int i, const int j) const {
     return _data[i][j];
   }
   // ___________________________________________________________________________

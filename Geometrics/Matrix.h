@@ -48,7 +48,15 @@ namespace Geometrics {
      * @param j column
      * @return Value at position i and j.
      */
-    T& operator()(const int i, const int j) const;
+    T& operator()(const int i, const int j);
+    /**
+     * Return the value at position i and j. Where i describes the row and j
+     * the column. Constant variant.
+     * @param i row
+     * @param j column
+     * @return Value at position i and j.
+     */
+    const T& operator()(const int i, const int j) const;
     int _rows;
     int _cols;
   private:
