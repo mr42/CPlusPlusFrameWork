@@ -107,6 +107,27 @@ namespace Geometrics {
   }
   // ___________________________________________________________________________
   template <class T>
+  Matrix<T>& Matrix<T>::operator +=(const T v) {
+    for (int i = 0; i < _rows; i++) {
+      for (int j = 0; j < _cols; j++) {
+        this->at(i, j) += v;
+      }
+    }
+    return *this;
+  }
+  // ___________________________________________________________________________
+  template <class T>
+  const Matrix<T> Matrix<T>::operator +(const T v) {
+    Matrix m(_rows, _cols);
+    for (int i = 0; i < _rows; i++) {
+      for (int j = 0; j < _cols; j++) {
+        m(i, j) = this->at(i, j) + v;
+      }
+    }
+    return m;
+  }
+  // ___________________________________________________________________________
+  template <class T>
   Matrix<T>::Matrix(T* a, const int rows, const int cols) {
     generateZeroArray(rows, cols);
     for (int i = 0; i < rows; i++) {

@@ -40,6 +40,21 @@ TEST(MatrixTest, constructor) {
   EXPECT_EQ(2, mArray._cols);
 }
 
+TEST(MatrixTest, operatorAdd) {
+  int a[][2] = { {4, 5}, {2, 3}};
+  Matrix<> tmp(a[0], 2, 2);
+  Matrix<> m = tmp + 4;
+  EXPECT_EQ(8, m(0, 0));
+  EXPECT_EQ(9, m(0, 1));
+  EXPECT_EQ(6, m(1, 0));
+  EXPECT_EQ(7, m(1, 1));
+  m += 2;
+  EXPECT_EQ(10, m(0, 0));
+  EXPECT_EQ(11, m(0, 1));
+  EXPECT_EQ(8, m(1, 0));
+  EXPECT_EQ(9, m(1, 1));
+}
+
 TEST(MatrixTest, operatorAssign) {
   Matrix<int> m(3, 3);
   EXPECT_EQ(3, m._rows);

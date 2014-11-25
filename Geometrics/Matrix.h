@@ -55,6 +55,18 @@ namespace Geometrics {
     Matrix(T* a, const int rows, const int cols);
     CMatrix<T> convertToCMatrix();
     virtual ~Matrix();
+    /**
+     * Add the scalar value v to all entries of the matrix.
+     * @param v The scalar value.
+     * @return A matrix with all entries added by the value.
+     */
+    const Matrix operator+(const T v);
+    /**
+     * Add the scalar value v to all entries of the matrix.
+     * @param v The scalar value.
+     * @return The matrix with all entries added by the value.
+     */
+    Matrix& operator+=(const T v);
     Matrix& operator= (Matrix m);
     /**
      * Return the value at position i and j. Where i describes the row and j
