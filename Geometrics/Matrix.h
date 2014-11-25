@@ -27,11 +27,13 @@
 #define GEOMETRICS_MATRIX_H_
 
 #include <assert.h>
+#include <iostream>
 #include <string>
 #include <algorithm>
 #include "../ImageProcessing/CMatrix.h"
 
 using std::string;
+using std::ostream;
 
 namespace Geometrics {
   template <class T = int>
@@ -86,6 +88,25 @@ namespace Geometrics {
      * @return Value at position i and j.
      */
     const T& at(const int i, const int j) const;
+
+    /**
+     * Print the Matrix to the console in the octave format.
+     */
+    friend ostream& operator<<(ostream& os, const Matrix& m) {
+      os << "[";
+      for (int i = 0; i < m._rows; i++) {
+        for (int j = 0; j < m._cols - 1; j++) {
+          os << m(i, j) << " ";
+        }
+        os << m(i, m._cols - 1);
+        if (i == m._rows - 1)
+          os << "]";
+        else
+          os << ";";
+        os << std::endl;
+      }
+      return os;
+    }
     int _rows;
     int _cols;
   private:

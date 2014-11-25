@@ -24,6 +24,7 @@
  */
 
 #include <gtest/gtest.h>
+#include <iostream>
 #include "./Matrix.h"
 
 using Geometrics::Matrix;
