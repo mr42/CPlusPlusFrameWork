@@ -28,6 +28,17 @@
 
 using Geometrics::Matrix;
 
+TEST(MatrixTest, constructor) {
+  int a[][2] = { {4, 5}, {2, 3}};
+  Matrix<> mArray(a[0], 2, 2);
+  EXPECT_EQ(4, mArray(0, 0));
+  EXPECT_EQ(5, mArray(0, 1));
+  EXPECT_EQ(2, mArray(1, 0));
+  EXPECT_EQ(3, mArray(1, 1));
+  EXPECT_EQ(2, mArray._rows);
+  EXPECT_EQ(2, mArray._cols);
+}
+
 TEST(MatrixTest, operatorAssign) {
   Matrix<int> m(3, 3);
   EXPECT_EQ(3, m._rows);

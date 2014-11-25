@@ -34,13 +34,23 @@
 using std::string;
 
 namespace Geometrics {
-  template <class T>
+  template <class T = int>
   class Matrix {
   public:
     Matrix();
     explicit Matrix(const CMatrix<T>& cm);
     Matrix(const int rows, const int cols);
     Matrix(const Matrix& orig);
+    /**
+     * You can create a two dimensional array like this:
+     * b[][2] = { {4, 5}, {2, 3} };
+     * And to create a Matrix you just call Matrix(b[0], 2, 2).
+     *
+     * @param a The first element of the array(e.g. array[0]).
+     * @param rows The rows of the given array.
+     * @param cols The columns of the given array.
+     */
+    Matrix(T* a, const int rows, const int cols);
     CMatrix<T> convertToCMatrix();
     virtual ~Matrix();
     Matrix& operator= (Matrix m);

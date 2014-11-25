@@ -107,6 +107,16 @@ namespace Geometrics {
   }
   // ___________________________________________________________________________
   template <class T>
+  Matrix<T>::Matrix(T* a, const int rows, const int cols) {
+    generateZeroArray(rows, cols);
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        this->at(i, j) = *(a + i*rows + j);
+      }
+    }
+  }
+  // ___________________________________________________________________________
+  template <class T>
   void Matrix<T>::swap(Matrix& m) {
     // swap all the members  with m
     std::swap(_data, m._data);
