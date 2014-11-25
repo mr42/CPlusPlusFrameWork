@@ -26,18 +26,24 @@
 #include "./Matrix.h"
 
 namespace Geometrics {
+  // ___________________________________________________________________________
   template <class T>
   Matrix<T>::Matrix() {}
-
+  // ___________________________________________________________________________
   template <class T>
   Matrix<T>::Matrix(const int rows, const int cols) {
     generateZeroArray(rows, cols);
   }
-
+  // ___________________________________________________________________________
   template <class T>
   Matrix<T>::Matrix(const Matrix<T>& orig) {
   }
-
+  // ___________________________________________________________________________
+  template <class T>
+  T& Matrix<T>::operator()(const int i, const int j) const {
+    return _data[i][j];
+  }
+  // ___________________________________________________________________________
   template <class T>
   void Matrix<T>::generateZeroArray(const int rows, const int cols) {
     _rows = rows;
@@ -49,7 +55,7 @@ namespace Geometrics {
         _data[i][j] = 0;
     }
   }
-
+  // ___________________________________________________________________________
   template <class T>
   Matrix<T>::Matrix(const CMatrix<T>& cm) {
     generateZeroArray(cm.ySize(), cm.xSize());
@@ -58,7 +64,7 @@ namespace Geometrics {
         _data[i][j] = cm(j, i);
     }
   }
-
+  // ___________________________________________________________________________
   template <class T>
   CMatrix<T> Matrix<T>::convertToCMatrix() {
     CMatrix<T> m(_cols, _rows);
@@ -69,14 +75,14 @@ namespace Geometrics {
     }
     return m;
   }
-
+  // ___________________________________________________________________________
   template <class T>
   Matrix<T>::~Matrix() {
     for (int j = 0; j < _rows; j++)
       delete [] _data[j];
     delete [] _data;
   }
-
+  // ___________________________________________________________________________
   template class Matrix<float>;
 }
 

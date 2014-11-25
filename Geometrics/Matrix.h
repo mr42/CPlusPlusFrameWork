@@ -41,6 +41,14 @@ namespace Geometrics {
     explicit Matrix(const Matrix<T>& orig);
     CMatrix<T> convertToCMatrix();
     virtual ~Matrix();
+    /**
+     * Return the value at position i and j. Where i describes the row and j
+     * the column.
+     * @param i row
+     * @param j column
+     * @return Value at position i and j.
+     */
+    T& operator()(const int i, const int j) const;
     int _rows;
     int _cols;
   private:
