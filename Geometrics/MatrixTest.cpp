@@ -53,6 +53,16 @@ TEST(MatrixTest, operatorAdd) {
   EXPECT_EQ(11, m(0, 1));
   EXPECT_EQ(8, m(1, 0));
   EXPECT_EQ(9, m(1, 1));
+  m += m;
+  EXPECT_EQ(20, m(0, 0));
+  EXPECT_EQ(22, m(0, 1));
+  EXPECT_EQ(16, m(1, 0));
+  EXPECT_EQ(18, m(1, 1));
+  m = m + tmp;
+  EXPECT_EQ(24, m(0, 0));
+  EXPECT_EQ(27, m(0, 1));
+  EXPECT_EQ(18, m(1, 0));
+  EXPECT_EQ(21, m(1, 1));
 }
 
 TEST(MatrixTest, operatorAssign) {

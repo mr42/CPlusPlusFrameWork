@@ -67,6 +67,18 @@ namespace Geometrics {
      * @return The matrix with all entries added by the value.
      */
     Matrix& operator+=(const T v);
+    /**
+     * Add the Matrix m and this Matrix.
+     * @param v The scalar value.
+     * @return A matrix which is the sum of the two matrices.
+     */
+    const Matrix operator+(const Matrix& m);
+    /**
+     * Add the Matrix m to this Matrix
+     * @param v The scalar value.
+     * @return This matrix added by the Matrix m.
+     */
+    Matrix& operator+=(const Matrix& m);
     Matrix& operator= (Matrix m);
     /**
      * Return the value at position i and j. Where i describes the row and j

@@ -117,14 +117,35 @@ namespace Geometrics {
   }
   // ___________________________________________________________________________
   template <class T>
-  const Matrix<T> Matrix<T>::operator +(const T v) {
-    Matrix m(_rows, _cols);
+  Matrix<T>& Matrix<T>::operator +=(const Matrix& m) {
     for (int i = 0; i < _rows; i++) {
       for (int j = 0; j < _cols; j++) {
-        m(i, j) = this->at(i, j) + v;
+        this->at(i, j) += m(i, j);
       }
     }
-    return m;
+    return *this;
+  }
+  // ___________________________________________________________________________
+  template <class T>
+  const Matrix<T> Matrix<T>::operator +(const T v) {
+    Matrix res(_rows, _cols);
+    for (int i = 0; i < _rows; i++) {
+      for (int j = 0; j < _cols; j++) {
+        res(i, j) = this->at(i, j) + v;
+      }
+    }
+    return res;
+  }
+  // ___________________________________________________________________________
+  template <class T>
+  const Matrix<T> Matrix<T>::operator +(const Matrix& m) {
+    Matrix res(_rows, _cols);
+    for (int i = 0; i < _rows; i++) {
+      for (int j = 0; j < _cols; j++) {
+        res(i, j) = this->at(i, j) + m(i, j);
+      }
+    }
+    return res;
   }
   // ___________________________________________________________________________
   template <class T>
