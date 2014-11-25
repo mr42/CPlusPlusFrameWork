@@ -23,12 +23,15 @@
  * The Matrix.cpp desc.
  */
 
+#include <algorithm>
 #include "./Matrix.h"
 
 namespace Geometrics {
   // ___________________________________________________________________________
   template <class T>
-  Matrix<T>::Matrix() {}
+  Matrix<T>::Matrix() {
+    generateZeroArray(0, 0);
+  }
   // ___________________________________________________________________________
   template <class T>
   Matrix<T>::Matrix(const int rows, const int cols) {
@@ -37,28 +40,44 @@ namespace Geometrics {
   // ___________________________________________________________________________
   template <class T>
   Matrix<T>::Matrix(const Matrix<T>& orig) {
+    _rows = orig._rows;
+    _cols = orig._cols;
+    _data = new T[_rows * _cols];
+    for (int i = 0; i < _rows * _cols; i++)
+      _data[i] = orig._data[i];
   }
   // ___________________________________________________________________________
   template <class T>
   T& Matrix<T>::operator()(const int i, const int j) {
-    return _data[i][j];
+    assert(0 <= i && i < _rows);
+    assert(0 <= j && j < _cols);
+    return _data[i + _cols * j];
   }
   // ___________________________________________________________________________
   template <class T>
   const T& Matrix<T>::operator()(const int i, const int j) const {
-    return _data[i][j];
+    assert(0 <= i && i < _rows);
+    assert(0 <= j && j < _cols);
+    return _data[i + _cols * j];
+  }
+  // ___________________________________________________________________________
+  template <class T>
+  T& Matrix<T>::at(const int i, const int j) {
+    return this->operator ()(i, j);
+  }
+  // ___________________________________________________________________________
+  template <class T>
+  const T& Matrix<T>::at(const int i, const int j) const {
+    return this->operator ()(i, j);
   }
   // ___________________________________________________________________________
   template <class T>
   void Matrix<T>::generateZeroArray(const int rows, const int cols) {
     _rows = rows;
     _cols = cols;
-    _data = new T*[_rows];
-    for (int i = 0; i < _rows; i++) {
-      _data[i] = new T[_cols];
-      for (int j = 0; j < _cols; j++)
-        _data[i][j] = 0;
-    }
+    _data = new T[_rows * _cols];
+    for (int i = 0; i < _rows * _cols; i++)
+      _data[i] = 0;
   }
   // ___________________________________________________________________________
   template <class T>
@@ -66,7 +85,7 @@ namespace Geometrics {
     generateZeroArray(cm.ySize(), cm.xSize());
     for (int i = 0; i < _rows; i++) {
       for (int j = 0; j < _cols; j++)
-        _data[i][j] = cm(j, i);
+        this->at(i, j) = cm(j, i);
     }
   }
   // ___________________________________________________________________________
@@ -75,19 +94,32 @@ namespace Geometrics {
     CMatrix<T> m(_cols, _rows);
     for (int i = 0; i < _rows; i++) {
       for (int j = 0; j < _cols; j++) {
-        m(j, i) = _data[i][j];
+        m(j, i) = this->at(i, j);
       }
     }
     return m;
   }
   // ___________________________________________________________________________
   template <class T>
+  Matrix<T>& Matrix<T>::operator =(Matrix m) {
+    swap(m);
+    return *this;
+  }
+  // ___________________________________________________________________________
+  template <class T>
+  void Matrix<T>::swap(Matrix& m) {
+    // swap all the members  with m
+    std::swap(_data, m._data);
+    std::swap(_rows, m._rows);
+    std::swap(_cols, m._cols);
+  }
+  // ___________________________________________________________________________
+  template <class T>
   Matrix<T>::~Matrix() {
-    for (int j = 0; j < _rows; j++)
-      delete [] _data[j];
     delete [] _data;
   }
   // ___________________________________________________________________________
   template class Matrix<float>;
+  template class Matrix<int>;
 }
 

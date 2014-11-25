@@ -26,7 +26,9 @@
 #ifndef GEOMETRICS_MATRIX_H_
 #define GEOMETRICS_MATRIX_H_
 
+#include <assert.h>
 #include <string>
+#include <algorithm>
 #include "../ImageProcessing/CMatrix.h"
 
 using std::string;
@@ -38,9 +40,10 @@ namespace Geometrics {
     Matrix();
     explicit Matrix(const CMatrix<T>& cm);
     Matrix(const int rows, const int cols);
-    explicit Matrix(const Matrix<T>& orig);
+    Matrix(const Matrix& orig);
     CMatrix<T> convertToCMatrix();
     virtual ~Matrix();
+    Matrix& operator= (Matrix m);
     /**
      * Return the value at position i and j. Where i describes the row and j
      * the column.
@@ -57,11 +60,28 @@ namespace Geometrics {
      * @return Value at position i and j.
      */
     const T& operator()(const int i, const int j) const;
+    /**
+     * Return the value at position i and j. Where i describes the row and j
+     * the column.
+     * @param i row
+     * @param j column
+     * @return Value at position i and j.
+     */
+    T& at(const int i, const int j);
+    /**
+     * Return the value at position i and j. Where i describes the row and j
+     * the column. Constant variant.
+     * @param i row
+     * @param j column
+     * @return Value at position i and j.
+     */
+    const T& at(const int i, const int j) const;
     int _rows;
     int _cols;
   private:
+    void swap(Matrix& m);
     void generateZeroArray(const int rows, const int cols);
-    T** _data;
+    T* _data;
   };
 }
 

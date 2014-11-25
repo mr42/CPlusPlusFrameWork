@@ -29,10 +29,18 @@
 using Geometrics::Matrix;
 
 TEST(MatrixTest, operatorAssign) {
-  Matrix<float> m(3, 3);
+  Matrix<int> m(3, 3);
   EXPECT_EQ(3, m._rows);
   EXPECT_EQ(3, m._cols);
   for (int i = 0; i < m._rows; i++)
     for (int j = 0; j < m._cols; j++)
       EXPECT_EQ(0, m(i, j));
+  Matrix<int> m2 = Matrix<int>(2, 4);
+  m(1, 2) = 6;
+  m2(1, 2) = 4;
+  EXPECT_EQ(4, m2(1, 2));
+  m2 = m;
+  EXPECT_EQ(3, m2._rows);
+  EXPECT_EQ(3, m2._cols);
+  EXPECT_EQ(6, m2(1, 2));
 }
