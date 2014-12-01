@@ -65,6 +65,20 @@ TEST(MatrixTest, operatorAdd) {
   EXPECT_EQ(21, m(1, 1));
 }
 
+TEST(MatrixTest, trans) {
+  int a[][3] = { {3, 4, 3}, {1, 2, 3} };
+  Matrix<> m(a[0], 2, 3);
+  Matrix<> t = m.trans();
+  EXPECT_EQ(3, t._rows);
+  EXPECT_EQ(2, t._cols);
+  EXPECT_EQ(m(0, 0), t(0, 0));
+  EXPECT_EQ(m(0, 1), t(1, 0));
+  EXPECT_EQ(m(0, 2), t(2, 0));
+  EXPECT_EQ(m(1, 0), t(0, 1));
+  EXPECT_EQ(m(1, 1), t(1, 1));
+  EXPECT_EQ(m(1, 2), t(2, 1));
+}
+
 TEST(MatrixTest, operatorAssign) {
   Matrix<int> m(3, 3);
   EXPECT_EQ(3, m._rows);

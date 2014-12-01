@@ -51,14 +51,14 @@ namespace Geometrics {
   T& Matrix<T>::operator()(const int i, const int j) {
     assert(0 <= i && i < _rows);
     assert(0 <= j && j < _cols);
-    return _data[i + _cols * j];
+    return _data[i * _cols + j];
   }
   // ___________________________________________________________________________
   template <class T>
   const T& Matrix<T>::operator()(const int i, const int j) const {
     assert(0 <= i && i < _rows);
     assert(0 <= j && j < _cols);
-    return _data[i + _cols * j];
+    return _data[i * _cols + j];
   }
   // ___________________________________________________________________________
   template <class T>
@@ -117,6 +117,17 @@ namespace Geometrics {
   }
   // ___________________________________________________________________________
   template <class T>
+  Matrix<T> Matrix<T>::trans() {
+    Matrix<T> res(_cols, _rows);
+    for (int i = 0; i < _rows; i++) {
+      for (int j = 0; j < _cols; j++) {
+        res(j, i) = this->at(i, j);
+      }
+    }
+    return res;
+  }
+  // ___________________________________________________________________________
+  template <class T>
   Matrix<T>& Matrix<T>::operator +=(const Matrix& m) {
     for (int i = 0; i < _rows; i++) {
       for (int j = 0; j < _cols; j++) {
@@ -151,9 +162,10 @@ namespace Geometrics {
   template <class T>
   Matrix<T>::Matrix(T* a, const int rows, const int cols) {
     generateZeroArray(rows, cols);
-    for (int i = 0; i < rows; i++) {
-      for (int j = 0; j < cols; j++) {
-        this->at(i, j) = *(a + i*rows + j);
+    for (int i = 0; i < _rows; i++) {
+      for (int j = 0; j < _cols; j++) {
+        T tmp = *(a + i * cols + j);
+        this->at(i, j) = tmp;
       }
     }
   }

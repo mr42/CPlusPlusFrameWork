@@ -112,6 +112,7 @@ namespace Geometrics {
      * @return Value at position i and j.
      */
     const T& at(const int i, const int j) const;
+    Matrix trans();
 
     /**
      * Print the Matrix to the console in the octave format.
