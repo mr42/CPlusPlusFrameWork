@@ -103,6 +103,16 @@ namespace Geometrics {
       }
       return res;
     }
+    void clipValues(const T min, const T max) {
+      for (int i = 0; i < _rows; i++) {
+        for (int j = 0; j < _cols; j++) {
+          if (this->at(i, j) < min)
+            this->at(i, j) = min;
+          else if (this->at(i, j) > max)
+            this->at(i, j) = max;
+        }
+      }
+    }
     /**
      * Add the scalar value v to all entries of the matrix.
      * @param v The scalar value.

@@ -40,6 +40,20 @@ TEST(MatrixTest, constructor) {
   EXPECT_EQ(2, mArray._cols);
 }
 
+TEST(MatrixTest, clipValues) {
+  int a[][3] = { {0, 255, 120}, {-1, 256, 30}};
+  Matrix<> m(a[0], 2, 3);
+  m.clipValues(0, 255);
+  EXPECT_EQ(0, m(0, 0));
+  EXPECT_EQ(255, m(0, 1));
+  EXPECT_EQ(120, m(0, 2));
+  EXPECT_EQ(0, m(1, 0));
+  EXPECT_EQ(255, m(1, 1));
+  EXPECT_EQ(30, m(1, 2));
+  EXPECT_EQ(2, m._rows);
+  EXPECT_EQ(3, m._cols);
+}
+
 TEST(MatrixTest, operatorAdd) {
   int a[][2] = { {4, 5}, {2, 3}};
   Matrix<> tmp(a[0], 2, 2);
