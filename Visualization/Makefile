@@ -7,7 +7,7 @@ CPPLINT_PATH = ../cpplint.py
 
 .PRECIOUS: %.o
 
-all: compile test checkstyle
+all: compile test
 
 compile: $(MAIN_BINARIES) $(TEST_BINARIES)
 
