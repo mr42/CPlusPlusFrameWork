@@ -27,6 +27,8 @@
 #define GEOMETRICS_MATRIX_H_
 
 #include <assert.h>
+#include <cmath>
+#include <limits>
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -72,8 +74,7 @@ namespace Geometrics {
       generateZeroArray(rows, cols);
       for (int i = 0; i < _rows; i++) {
         for (int j = 0; j < _cols; j++) {
-          T tmp = *(a + i * cols + j);
-          this->at(i, j) = tmp;
+          this->at(i, j) = *(a + i * cols + j);
         }
       }
     }
@@ -157,6 +158,20 @@ namespace Geometrics {
       swap(m);
       return *this;
     }
+    bool operator== (const Matrix& m) {
+      if (_rows != m._rows) return false;
+      if (_cols != m._cols) return false;
+      for (int i = 0; i < _rows; i++) {
+        for (int j = 0; j < _cols; j++) {
+          if (this->at(i, j) - m(i, j) >= std::numeric_limits<T>::epsilon() &&
+              this->at(i, j) - m(i, j) <= std::numeric_limits<T>::epsilon()) {
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+
     /**
      * Return the value at position i and j. Where i describes the row and j
      * the column.
