@@ -30,13 +30,14 @@
 #include <math.h>
 #include <iostream>
 #include <vector>
+#include "./Filter.h"
 #include "../Geometrics/Matrix.h"
 
 using Geometrics::Matrix;
 using std::vector;
 
 namespace Filter {
-  class GaussianFilter {
+  class GaussianFilter : public Filter {
   public:
     GaussianFilter() {}
     GaussianFilter(const GaussianFilter& orig) {}
@@ -45,39 +46,14 @@ namespace Filter {
       // TODO(mr42): Problems with small images and high sigma, since the mirroring
       // makes problems.
       vector<float> kernel = computeKernel(sigma);
-      Matrix<T> res = filter(m, kernel);
+      Matrix<T> res = filterX(m, kernel);
       res.clipValues(0, 255);
-      res = res.trans();
-      res = filter(res, kernel);
+      res = filterY(m, kernel);
       res.clipValues(0, 255);
-      res = res.trans();
       return res;
     }
     virtual ~GaussianFilter() {}
   private:
-    template <class T>
-    Matrix<T> filter(const Matrix<T>& m, const vector<float>& kernel) const {
-      Matrix<T> res(m._rows, m._cols);
-      for (int i = 0; i < m._rows; i++) {
-        for (int j = 0; j < m._cols; j++) {
-          // mean
-          res(i, j) += kernel[0] * m(i, j);
-          // left from mean
-          for (size_t k = 1; k < kernel.size(); k++) {
-            int c = j - k;
-            if (c < 0) c = -1 * c;
-            res(i, j) += kernel[k] * m(i, c);
-          }
-          // right from mean
-          for (size_t k = 1; k < kernel.size(); k++) {
-            int c = j + k;
-            if (c >= m._cols) c = 2 * (m._cols - 1) - c;
-            res(i, j) += kernel[k] * m(i, c);
-          }
-        }
-      }
-      return res;
-    }
     vector<float> computeKernel(const float sigma) const {
       // compute gaussian kernel
       vector<float> kernel(3 * sigma + 1);
