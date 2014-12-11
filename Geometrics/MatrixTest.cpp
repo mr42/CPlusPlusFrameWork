@@ -91,6 +91,25 @@ namespace Geometrics {
     EXPECT_EQ(m(1, 2), t(2, 1));
   }
 
+  TEST(MatrixTest, operatorEqual) {
+    int a[][3] = { {3, 4, 3}, {1, 2, 3} };
+    int a2[][3] = { {3, 4, 0}, {1, 2, 3} };
+    Matrix<> m(a[0], 2, 3);
+    Matrix<> m2(a2[0], 2, 3);
+    Matrix<> m3(a[0], 2, 3);
+    EXPECT_TRUE(m == m3);
+    EXPECT_FALSE(m == m2);
+  }
+
+  TEST(MatrixTest, operatorNotEqual) {
+    int a[][3] = { {3, 4, 3}, {1, 2, 3} };
+    int a2[][3] = { {3, 4, 0}, {1, 2, 3} };
+    Matrix<> m(a[0], 2, 3);
+    Matrix<> m2(a2[0], 2, 3);
+    Matrix<> m3(a[0], 2, 3);
+    EXPECT_FALSE(m != m3);
+    EXPECT_TRUE(m != m2);
+  }
   TEST(MatrixTest, operatorAssign) {
     Matrix<int> m(3, 3);
     EXPECT_EQ(3, m._rows);

@@ -163,13 +163,16 @@ namespace Geometrics {
       if (_cols != m._cols) return false;
       for (int i = 0; i < _rows; i++) {
         for (int j = 0; j < _cols; j++) {
-          if (this->at(i, j) - m(i, j) >= std::numeric_limits<T>::epsilon() &&
-              this->at(i, j) - m(i, j) <= std::numeric_limits<T>::epsilon()) {
+          if (this->at(i, j) - m(i, j) > std::numeric_limits<T>::epsilon() ||
+              this->at(i, j) - m(i, j) < -std::numeric_limits<T>::epsilon()) {
             return false;
           }
         }
       }
       return true;
+    }
+    bool operator!= (const Matrix& m) {
+      return !this->operator ==(m);
     }
 
     /**
